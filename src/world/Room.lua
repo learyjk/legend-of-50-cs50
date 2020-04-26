@@ -151,20 +151,19 @@ function Room:update(dt)
     if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then return end
 
     self.player:update(dt)
-    print(#self.entities)
+
     for i = #self.entities, 1, -1 do
         local entity = self.entities[i]
 
         -- remove entity from the table if health is <= 0
         if entity.dead then
             goto continue
-        if entity.health <= 0 then
+        elseif entity.health <= 0 then
             entity.dead = true
             -- random chance for a heart to appear when enemy is killed.
             if math.random(10) <= 5 then
                 table.insert(self.objects, GameObject(GAME_OBJECT_DEFS['heart'], entity.x, entity.y))
             end
-
             -- not sure why this doesn't work...
             -- table.remove(self.entities, i)
         elseif not entity.dead then
