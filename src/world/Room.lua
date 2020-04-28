@@ -104,6 +104,30 @@ function Room:generateObjects()
             gSounds['door']:play()
         end
     end
+
+    --add pots
+    table.insert(self.objects, GameObject(
+        GAME_OBJECT_DEFS['pot'],
+        math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+                    VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+        math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+                    VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+    ))
+
+    local pot = self.objects[2]
+
+    -- pot.onCollide = function()
+    --     print("pot!")
+    --     if self.player.direction == 'right' and self.player:collides(pot) then
+    --         self.player.x = pot.x - self.player.width - 1
+    --     elseif self.player.direction == 'down' and self.player:collides(pot) then
+    --         self.player.y = pot.y - self.player.height - 1
+    --     elseif self.player.direction == 'up' and self.player:collides(pot) then
+    --         self.player.y = pot.y + pot.height - self.player.height/2 + 1
+    --     else
+    --         self.player.x = pot.x + pot.width + 1
+    --     end
+    -- end
 end
 
 --[[
@@ -186,14 +210,25 @@ function Room:update(dt)
 
     for k, object in pairs(self.objects) do
         object:update(dt)
-        print(k)
+        -- print(k)
 
         -- trigger collision callback on object
         if self.player:collides(object) then
             if object.type == 'heart' then
                 object:onCollide(self, k)
+            elseif object.solid then
+                self.player:onCollideWithSolid(object)
             else
                 object:onCollide()
+            end
+        end
+
+        for i = #self.entities, 1, -1 do
+            local entity = self.entities[i]
+            if entity:collides(object) then
+                if object.solid then
+                    entity:onCollideWithSolid(object)
+                end
             end
         end
     end

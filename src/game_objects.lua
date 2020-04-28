@@ -32,7 +32,6 @@ GAME_OBJECT_DEFS = {
         width = 16,
         height = 16,
         solid = false,
-        consumeable = true,
         defaultState = 'idle',
         states = {
             ['idle'] = {
@@ -40,7 +39,6 @@ GAME_OBJECT_DEFS = {
             },
         },
         onCollide = function(self, room, k)
-            print("onCollide for a heart")
             if room.player.health <= 4 then
                 room.player:damage(-2)
                 table.remove(room.objects, k)
@@ -50,6 +48,19 @@ GAME_OBJECT_DEFS = {
     },
 
     ['pot'] = {
-        -- TODO
+        type = 'pot',
+        texture = 'tiles',
+        frame = math.random(14, 17),
+        width = 16,
+        height = 16,
+        solid = true,
+        defaultState = 'idle',
+        states = {
+            ['idle'] = {
+                frame = math.random(14, 17),
+            }
+        },
+        onCollide = function()
+        end
     }
 }

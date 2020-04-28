@@ -56,8 +56,21 @@ end
     AABB with some slight shrinkage of the box on the top side for perspective.
 ]]
 function Entity:collides(target)
+
     return not (self.x + self.width < target.x or self.x > target.x + target.width or
                 self.y + self.height < target.y or self.y > target.y + target.height)
+end
+
+function Entity:onCollideWithSolid(target)
+    if self.direction == 'right' and self:collides(target) then
+        self.x = target.x - self.width - 1
+    elseif self.direction == 'down' and self:collides(target) then
+        self.y = target.y - self.height - 1
+    elseif self.direction == 'up' and self:collides(target) then
+        self.y = target.y + target.height - self.height/2 + 1
+    else
+        self.x = target.x + target.width + 1
+    end
 end
 
 function Entity:damage(dmg)
