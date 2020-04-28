@@ -106,28 +106,15 @@ function Room:generateObjects()
     end
 
     --add pots
-    table.insert(self.objects, GameObject(
-        GAME_OBJECT_DEFS['pot'],
-        math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
-                    VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
-        math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
-                    VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
-    ))
-
-    local pot = self.objects[2]
-
-    -- pot.onCollide = function()
-    --     print("pot!")
-    --     if self.player.direction == 'right' and self.player:collides(pot) then
-    --         self.player.x = pot.x - self.player.width - 1
-    --     elseif self.player.direction == 'down' and self.player:collides(pot) then
-    --         self.player.y = pot.y - self.player.height - 1
-    --     elseif self.player.direction == 'up' and self.player:collides(pot) then
-    --         self.player.y = pot.y + pot.height - self.player.height/2 + 1
-    --     else
-    --         self.player.x = pot.x + pot.width + 1
-    --     end
-    -- end
+    for i = 1, math.random(5) do
+        table.insert(self.objects, GameObject(
+            GAME_OBJECT_DEFS['pot'],
+            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+                        VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+            math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+                        VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+        ))
+    end
 end
 
 --[[
