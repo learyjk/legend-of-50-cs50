@@ -36,7 +36,6 @@ function Entity:init(def)
     self.flashTimer = 0
 
     self.dead = false
-    self.hasPot = false
 end
 
 function Entity:createAnimations(animations)

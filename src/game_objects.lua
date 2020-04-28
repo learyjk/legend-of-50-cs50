@@ -58,9 +58,6 @@ GAME_OBJECT_DEFS = {
         states = {
             ['idle'] = {
                 frame = math.random(14, 17),
-            },
-            ['broken'] = {
-                frame = math.random(52, 54)
             }
         },
         onCollide = function()
