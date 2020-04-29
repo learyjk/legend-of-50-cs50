@@ -23,6 +23,9 @@ function Room:init(player)
     self.objects = {}
     self:generateObjects()
 
+    -- projectiles in the room
+    self.projectiles = {}
+
     -- doorways that lead to other dungeon rooms
     self.doorways = {}
     table.insert(self.doorways, Doorway('top', false, self))
@@ -174,6 +177,10 @@ function Room:update(dt)
     -- don't update anything if we are sliding to another room (we have offsets)
     if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then return end
 
+    for k, projectile in pairs(self.projectiles) do
+        projectile:update(dt)
+    end
+
     self.player:update(dt)
 
     for i = #self.entities, 1, -1 do
@@ -232,6 +239,8 @@ function Room:update(dt)
             end
         end
     end
+
+
 end
 
 function Room:render()
@@ -281,6 +290,10 @@ function Room:render()
 
     if self.player then
         self.player:render()
+    end
+
+    for k, projectile in pairs(self.projectiles) do
+        projectile:render(self.adjacentOffsetX, self.adjacentOffsetY)
     end
 
     love.graphics.setStencilTest()

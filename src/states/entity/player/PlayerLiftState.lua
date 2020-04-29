@@ -61,8 +61,22 @@ function PlayerLiftState:update(dt)
         for k, object in pairs(self.dungeon.currentRoom.objects) do
             if object.type == 'pot' then
                 if object:collides(self.potHitBox) then
-                    --table.remove(self.room.objects, k)
+                    table.remove(self.dungeon.currentRoom.objects, k)
+                    p = Projectile(
+                        GAME_OBJECT_DEFS['pot'],
+                        self.player.x,
+                        self.player.y - self.player.height/2 + 2,
+                        self.player
+                    )
+                    table.insert(self.dungeon.currentRoom.projectiles, p)
+
+                    -- table.insert(self.dungeon.currentRoom.objects, Projectile(
+                    --     GAME_OBJECT_DEFS['pot'],
+                    --     self.player.x,
+                    --     self.player.y
+                    -- ))
                     --self.player:pickObject(object)
+
                     print("hit the pot!")
                     self.player:changeState('idle-pot')
                     return

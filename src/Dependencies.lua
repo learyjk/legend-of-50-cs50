@@ -7,11 +7,13 @@ Event = require 'lib/knife.event'
 push = require 'lib/push'
 Timer = require 'lib/knife.timer'
 
+
 require 'src/Animation'
 require 'src/constants'
 require 'src/Entity'
 require 'src/entity_defs'
 require 'src/GameObject'
+require 'src/Projectile'
 require 'src/game_objects'
 require 'src/Hitbox'
 require 'src/Player'

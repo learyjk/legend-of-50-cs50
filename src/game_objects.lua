@@ -50,14 +50,14 @@ GAME_OBJECT_DEFS = {
     ['pot'] = {
         type = 'pot',
         texture = 'tiles',
-        frame = math.random(14, 17),
+        frame = 14,
         width = 16,
         height = 16,
         solid = true,
         defaultState = 'idle',
         states = {
             ['idle'] = {
-                frame = math.random(14, 17),
+                frame = 14,
             }
         },
         onCollide = function()
