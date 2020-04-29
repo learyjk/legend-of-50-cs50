@@ -23,6 +23,23 @@ function Player:collides(target)
                 selfY + selfHeight < target.y or selfY > target.y + target.height)
 end
 
+function Player:throw(projectile)
+    if self.direction == 'left' then
+        projectile.dx = -THROW_SPEED
+        projectile.dy = 0
+    elseif self.direction == 'right' then
+        projectile.dx = THROW_SPEED
+        projectile.dy = 0
+    elseif self.direction == 'up' then
+        projectile.dx = 0
+        projectile.dy = -THROW_SPEED
+    else
+        projectile.dx = 0
+        projectile.dy = THROW_SPEED
+    end
+
+end
+
 function Player:render()
     Entity.render(self)
     -- love.graphics.setColor(255, 0, 255, 255)

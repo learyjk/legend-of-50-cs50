@@ -70,14 +70,8 @@ function PlayerLiftState:update(dt)
                     )
                     table.insert(self.dungeon.currentRoom.projectiles, p)
 
-                    -- table.insert(self.dungeon.currentRoom.objects, Projectile(
-                    --     GAME_OBJECT_DEFS['pot'],
-                    --     self.player.x,
-                    --     self.player.y
-                    -- ))
                     --self.player:pickObject(object)
 
-                    print("hit the pot!")
                     self.player:changeState('idle-pot')
                     return
                 end

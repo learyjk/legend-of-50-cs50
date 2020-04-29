@@ -23,6 +23,11 @@ function PlayerIdlePotState:update(dt)
             self.entity:changeState('walk-pot')
     end
 
+    if love.keyboard.wasPressed('return') then
+        self.entity:throw(self.dungeon.currentRoom.projectiles[1])
+        self.entity:changeState('idle')
+    end
+
 
 
 end

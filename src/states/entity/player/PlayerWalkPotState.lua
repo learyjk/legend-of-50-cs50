@@ -38,6 +38,10 @@ function PlayerWalkPotState:update(dt)
         self.entity:changeState('idle-pot')
     end
 
+    if love.keyboard.wasPressed('return') then
+        self.entity:changeState('idle')
+    end
+
     -- if love.keyboard.wasPressed('return') then
     --     self.entity:changeState('lift')
     -- end

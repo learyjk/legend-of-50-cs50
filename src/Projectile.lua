@@ -18,8 +18,15 @@ function Projectile:init(def, x, y, player)
 end
 
 function Projectile:update(dt)
-    self.x = self.player.x
-    self.y = self.player.y - self.player.height/2 + 2
+    print(self.dx)
+    print(dt)
+    if self.dx ~= 0 or self.dy ~= 0 then
+        self.x = self.x + self.dx * dt
+        self.y = self.y + self.dy * dt
+    else
+        self.x = self.player.x
+        self.y = self.player.y - (self.player.height/2 + 2)
+    end
 end
 
 function Projectile:render(adjacentOffsetX, adjacentOffsetY)
