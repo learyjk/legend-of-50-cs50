@@ -18,7 +18,7 @@ function PlayerSwingSwordState:init(player, dungeon)
 
     -- create hitbox based on where the player is and facing
     local direction = self.player.direction
-    
+
     local hitboxX, hitboxY, hitboxWidth, hitboxHeight
 
     if direction == 'left' then
@@ -50,7 +50,7 @@ end
 function PlayerSwingSwordState:enter(params)
     gSounds['sword']:stop()
     gSounds['sword']:play()
-
+    
     -- restart sword swing animation
     self.player.currentAnimation:refresh()
 end

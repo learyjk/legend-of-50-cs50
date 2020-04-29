@@ -118,6 +118,22 @@ ENTITY_DEFS = {
                 looping = false,
                 texture = 'character-with-pot'
             },
+            ['idle-pot-left'] = {
+                frames = {13},
+                texture = 'character-with-pot'
+            },
+            ['idle-pot-right'] = {
+                frames = {5},
+                texture = 'character-with-pot'
+            },
+            ['idle-pot-down'] = {
+                frames = {1},
+                texture = 'character-with-pot'
+            },
+            ['idle-pot-up'] = {
+                frames = {9},
+                texture = 'character-with-pot'
+            },
         }
     },
     ['skeleton'] = {

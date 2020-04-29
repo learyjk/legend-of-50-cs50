@@ -43,39 +43,34 @@ function PlayerLiftState:init(player, dungeon)
         hitboxY = self.player.y + self.player.height
     end
 
-    self.potHitbox = Hitbox(hitboxX, hitboxY, hitboxWidth, hitboxHeight)
+    self.potHitBox = Hitbox(hitboxX, hitboxY, hitboxWidth, hitboxHeight)
+
     self.player:changeAnimation('lift-' .. self.player.direction)
-    self.player.hasPot = true
-    if hasPot then
-        print("Player has the pot")
-    end
-    self.player:changeState('walk')
+    --self.player:changeState('walk-pot')
 end
 
 function PlayerLiftState:enter(params)
-    gSounds['sword']:stop()
-    gSounds['sword']:play()
-
-    -- restart animation
     self.player.currentAnimation:refresh()
 end
 
 function PlayerLiftState:update(dt)
-    -- loop through objects not entities
-    for k, entity in pairs(self.dungeon.currentRoom.entities) do
-        if entity:collides(self.potHitbox) then
-            -- code to lift a pot here.
-            gSounds['hit-enemy']:play()
-        end
-    end
+    local direction = self.player.direction
 
     if self.player.currentAnimation.timesPlayed > 0 then
+        -- check if hitbox collides with any entities in the scene
+        for k, object in pairs(self.dungeon.currentRoom.objects) do
+            if object.type == 'pot' then
+                if object:collides(self.potHitBox) then
+                    --table.remove(self.room.objects, k)
+                    --self.player:pickObject(object)
+                    print("hit the pot!")
+                    self.player:changeState('idle-pot')
+                    return
+                end
+            end
+        end
         self.player.currentAnimation.timesPlayed = 0
         self.player:changeState('idle')
-    end
-
-    if love.keyboard.wasPressed('space') then
-        self.player:changeState('swing-sword')
     end
 end
 
@@ -84,10 +79,10 @@ function PlayerLiftState:render()
     love.graphics.draw(gTextures[anim.texture], gFrames[anim.texture][anim:getCurrentFrame()],
         math.floor(self.player.x - self.player.offsetX), math.floor(self.player.y - self.player.offsetY))
 
-    -- debug for player and hurtbox collision rects
-    -- love.graphics.setColor(255, 0, 255, 255)
-    -- love.graphics.rectangle('line', self.player.x, self.player.y, self.player.width, self.player.height)
-    -- love.graphics.rectangle('line', self.swordHurtbox.x, self.swordHurtbox.y,
-    --     self.swordHurtbox.width, self.swordHurtbox.height)
-    -- love.graphics.setColor(255, 255, 255, 255)
+    --debug for player and hurtbox collision rects
+    love.graphics.setColor(255, 0, 255, 255)
+    love.graphics.rectangle('line', self.player.x, self.player.y, self.player.width, self.player.height)
+    love.graphics.rectangle('line', self.potHitBox.x, self.potHitBox.y,
+        self.potHitBox.width, self.potHitBox.height)
+    love.graphics.setColor(255, 255, 255, 255)
 end
