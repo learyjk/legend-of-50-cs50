@@ -187,8 +187,14 @@ function Room:update(dt)
                 table.remove(self.projectiles, i)
             end
         end
+        if projectile.distanceTraveled >= 64 and projectile.isThrown then
+            table.remove(self.projectiles, i)
+        end
+        if projectile:hitsWall(self) then
+            table.remove(self.projectiles, i)
+        end
     end
-    print(#self.projectiles)
+    print(#self.tiles)
 
     self.player:update(dt)
 
