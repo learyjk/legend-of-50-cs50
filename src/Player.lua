@@ -24,6 +24,7 @@ function Player:collides(target)
 end
 
 function Player:throw(projectile)
+    projectile.isThrown = true
     if self.direction == 'left' then
         projectile.dx = -THROW_SPEED
         projectile.dy = 0

@@ -109,15 +109,15 @@ function Room:generateObjects()
     end
 
     --add pots
-    table.insert(self.objects, GameObject(
-        GAME_OBJECT_DEFS['pot'],
-        math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
-                    VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
-        math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
-                    VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
-    ))
-
-    local pot = self.objects[2]
+    for i = 2, math.random(2, 5) do
+        table.insert(self.objects, GameObject(
+            GAME_OBJECT_DEFS['pot'],
+            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+                        VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+            math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+                        VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+        ))
+    end
 
     -- pot.onCollide = function()
     --     print("pot!")
@@ -177,9 +177,18 @@ function Room:update(dt)
     -- don't update anything if we are sliding to another room (we have offsets)
     if self.adjacentOffsetX ~= 0 or self.adjacentOffsetY ~= 0 then return end
 
-    for k, projectile in pairs(self.projectiles) do
+    for i = #self.projectiles, 1, -1 do
+        projectile = self.projectiles[i]
         projectile:update(dt)
+        for j = #self.entities, 1, -1 do
+            local entity = self.entities[j]
+            if projectile:collides(entity) and projectile.isThrown then
+                entity:damage(1)
+                table.remove(self.projectiles, i)
+            end
+        end
     end
+    print(#self.projectiles)
 
     self.player:update(dt)
 

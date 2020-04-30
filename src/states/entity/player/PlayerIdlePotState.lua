@@ -24,7 +24,13 @@ function PlayerIdlePotState:update(dt)
     end
 
     if love.keyboard.wasPressed('return') then
-        self.entity:throw(self.dungeon.currentRoom.projectiles[1])
+
+        for i = #self.dungeon.currentRoom.projectiles, 1, -1 do
+            p = self.dungeon.currentRoom.projectiles[i]
+            self.entity:throw(p)
+        end
+        --table.remove should be part of Projectile:update when it hits stuff
+        --table.remove(self.dungeon.currentRoom.projectiles, 1)
         self.entity:changeState('idle')
     end
 

@@ -39,6 +39,10 @@ function PlayerWalkPotState:update(dt)
     end
 
     if love.keyboard.wasPressed('return') then
+        for i = #self.dungeon.currentRoom.projectiles, 1, -1 do
+            p = self.dungeon.currentRoom.projectiles[i]
+            self.entity:throw(p)
+        end
         self.entity:changeState('idle')
     end
 
