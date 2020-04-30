@@ -118,19 +118,6 @@ function Room:generateObjects()
                         VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
         ))
     end
-
-    -- pot.onCollide = function()
-    --     print("pot!")
-    --     if self.player.direction == 'right' and self.player:collides(pot) then
-    --         self.player.x = pot.x - self.player.width - 1
-    --     elseif self.player.direction == 'down' and self.player:collides(pot) then
-    --         self.player.y = pot.y - self.player.height - 1
-    --     elseif self.player.direction == 'up' and self.player:collides(pot) then
-    --         self.player.y = pot.y + pot.height - self.player.height/2 + 1
-    --     else
-    --         self.player.x = pot.x + pot.width + 1
-    --     end
-    -- end
 end
 
 --[[
@@ -194,7 +181,6 @@ function Room:update(dt)
             table.remove(self.projectiles, i)
         end
     end
-    print(#self.tiles)
 
     self.player:update(dt)
 
